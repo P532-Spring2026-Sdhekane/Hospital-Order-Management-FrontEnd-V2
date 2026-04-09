@@ -5,7 +5,7 @@ const IS_LOCAL =
   window.location.protocol === "file:";
 
 const RENDER_BACKEND_URL =
-  "https://hospital-order-management-backend.onrender.com";
+  "https://hospital-order-management-backend-1.onrender.com";
 const API = IS_LOCAL ? "http://localhost:8080" : RENDER_BACKEND_URL;
 
 let selectedPriority = "ROUTINE";
