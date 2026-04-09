@@ -4,7 +4,8 @@ const IS_LOCAL =
   window.location.hostname === "127.0.0.1" ||
   window.location.protocol === "file:";
 
-const RENDER_BACKEND_URL = "https://your-backend-name.onrender.com";
+const RENDER_BACKEND_URL =
+  "https://hospital-order-management-backend.onrender.com";
 const API = IS_LOCAL ? "http://localhost:8080" : RENDER_BACKEND_URL;
 
 let selectedPriority = "ROUTINE";
