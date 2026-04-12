@@ -463,7 +463,58 @@ function toast(msg, type = "success") {
   container.appendChild(el);
   setTimeout(() => el.remove(), 3500);
 }
+/* ── Staff Pool (Load Balancing) ─────────────────────────────────────────── */
+async function addStaff() {
+  const name = document.getElementById("new-staff-name").value.trim();
+  if (!name) {
+    toast("Enter a staff name.", "error");
+    return;
+  }
+  try {
+    await apiFetch("/api/staff", {
+      method: "POST",
+      body: JSON.stringify({ name }),
+    });
+    document.getElementById("new-staff-name").value = "";
+    toast(`${name} added to staff pool.`, "success");
+    refreshStaffPool();
+  } catch (e) {
+    toast(e.message, "error");
+  }
+}
 
+async function removeStaff(name) {
+  try {
+    await apiFetch(`/api/staff/${encodeURIComponent(name)}`, {
+      method: "DELETE",
+    });
+    toast(`${name} removed.`, "success");
+    refreshStaffPool();
+  } catch (e) {
+    toast(e.message, "error");
+  }
+}
+
+async function refreshStaffPool() {
+  try {
+    const res = await apiFetch("/api/staff");
+    const list = document.getElementById("staff-list");
+    if (!res.staff.length) {
+      list.innerHTML =
+        '<div style="font-size:10px;color:var(--grey-3)">No staff registered</div>';
+      return;
+    }
+    list.innerHTML = res.staff
+      .map(
+        (s) => `
+      <div class="staff-tag">
+        <span>${s}</span>
+        <button onclick="removeStaff('${s}')" title="Remove">✕</button>
+      </div>`,
+      )
+      .join("");
+  } catch (_) {}
+}
 /* ── Order state tracker for notifications ──────────────────────────────── */
 let prevOrderStates = {};
 

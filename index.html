@@ -100,7 +100,35 @@
             ↩ Undo Last Action
           </button>
         </div>
-
+        <div class="panel-label">Staff Pool</div>
+        <div class="staff-pool-box">
+          <div class="form-row">
+            <label>Add Staff Member</label>
+            <div style="display: flex; gap: 6px">
+              <input
+                type="text"
+                id="new-staff-name"
+                placeholder="e.g. Nurse Joy"
+              />
+              <button
+                class="btn btn-ok btn-sm"
+                onclick="addStaff()"
+                style="width: auto; white-space: nowrap"
+              >
+                + Add
+              </button>
+            </div>
+          </div>
+          <div
+            id="staff-list"
+            style="
+              margin-top: 8px;
+              display: flex;
+              flex-direction: column;
+              gap: 4px;
+            "
+          ></div>
+        </div>
         <!-- Change 1: Triage Strategy Selector -->
         <div class="panel-label">Triage Strategy</div>
         <div class="quick-actions">
