@@ -469,10 +469,6 @@ td {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 10px 14px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 12px;
-  align-items: center;
   font-size: 11px;
 }
 
@@ -784,4 +780,27 @@ td {
   cursor: pointer;
   font-size: 13px;
   padding: 0;
+}
+.log-entry-stat {
+  border-left: 3px solid var(--accent);
+}
+
+.log-entry-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.log-detail-body {
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 2px;
+  font-size: 10.5px;
+  color: var(--grey-4);
+  line-height: 1.6;
+  border-left: 2px solid var(--grey-2);
+  white-space: pre-wrap;
+  word-break: break-word;
 }

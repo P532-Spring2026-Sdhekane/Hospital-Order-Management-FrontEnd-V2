@@ -409,21 +409,32 @@ function renderAudit(log) {
   const list = document.getElementById("audit-list");
   const empty = document.getElementById("audit-empty");
   const reversed = [...log].reverse();
+
   if (!reversed.length) {
     list.innerHTML = "";
     empty.style.display = "block";
     return;
   }
   empty.style.display = "none";
+
   list.innerHTML = reversed
-    .map(
-      (e) => `
-    <div class="log-entry">
-      <span class="log-type lt-${e.commandType.split("_")[0]}">${e.commandType}</span>
-      <span class="log-detail">Order <strong>${e.orderId}</strong> · ${e.actor}</span>
-      <span class="log-time">${fmtTime(e.timestamp)}</span>
-    </div>`,
-    )
+    .map((e) => {
+      const isStatAudit = e.commandType === "STAT_AUDIT";
+      const detailHtml =
+        e.detail && e.detail.trim()
+          ? `<div class="log-detail-body">${e.detail}</div>`
+          : "";
+
+      return `
+      <div class="log-entry ${isStatAudit ? "log-entry-stat" : ""}">
+        <div class="log-entry-header">
+          <span class="log-type lt-${e.commandType.split("_")[0]}">${e.commandType}</span>
+          <span class="log-detail">Order <strong>${e.orderId}</strong> · ${e.actor}</span>
+          <span class="log-time">${fmtTime(e.timestamp)}</span>
+        </div>
+        ${detailHtml}
+      </div>`;
+    })
     .join("");
 }
 
